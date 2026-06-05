@@ -27,6 +27,8 @@ import java.util.UUID;
 
 public class LocationService extends Service {
 
+    public static volatile Location lastLocation;
+
     private static final String CHANNEL_ID = "location_channel";
     private FusedLocationProviderClient locationClient;
 
@@ -36,10 +38,10 @@ public class LocationService extends Service {
     private final LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(@NonNull LocationResult result) {
-            Location location = result.getLastLocation();
-            if (location == null) return;
+            lastLocation = result.getLastLocation();
+            if (lastLocation == null) return;
 
-            repository.sendLocation(id, location.getLatitude(), location.getLongitude());
+            repository.sendLocation(id, lastLocation.getLatitude(), lastLocation.getLongitude());
         }
     };
 
@@ -52,6 +54,8 @@ public class LocationService extends Service {
         locationClient = LocationServices.getFusedLocationProviderClient(this);
         id = getOrCreateDeviceId();
 
+        fetchLastLocation();
+
         createNotificationChannel();
         startForeground(1, buildNotification());
         startLocationUpdates();
@@ -62,6 +66,11 @@ public class LocationService extends Service {
                 .setMinUpdateIntervalMillis(15000).build();
 
         try { locationClient.requestLocationUpdates(request, locationCallback, Looper.getMainLooper()); }
+        catch (SecurityException ex) { Log.e("Location.Service", ex.getMessage(), ex); }
+    }
+
+    private void fetchLastLocation() {
+        try { locationClient.getLastLocation().addOnSuccessListener(location -> { if (location != null) lastLocation = location; });}
         catch (SecurityException ex) { Log.e("Location.Service", ex.getMessage(), ex); }
     }
 

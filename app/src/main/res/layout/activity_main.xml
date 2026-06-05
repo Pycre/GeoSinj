@@ -34,6 +34,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:textStyle="bold"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
@@ -41,9 +42,19 @@
             app:layout_constraintBottom_toTopOf="@id/tvCoords"/>
 
         <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="#888888"
+            app:layout_constraintStart_toEndOf="@id/tvName"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
             android:id="@+id/tvCoords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             app:layout_constraintBottom_toTopOf="@id/tvLastSeen"/>
@@ -52,10 +63,19 @@
             android:id="@+id/tvLastSeen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintTop_toBottomOf="@id/tvCoords"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_location_pin"/>
 
 </FrameLayout>

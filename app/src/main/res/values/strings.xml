@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Geo Sinj</string>
+
+    <string name="placeholder_duration_s">%ds ago</string>
+    <string name="placeholder_duration_m">%dm ago</string>
+    <string name="placeholder_duration_h">%dh ago</string>
+    <string name="placeholder_duration_d">%dd ago</string>
+    
+    <string name="placeholder_distance_m">%.0f m</string>
+    <string name="placeholder_distance_km">%.1f km</string>
 </resources>
